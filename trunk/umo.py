@@ -78,7 +78,7 @@ def show_help(AndQuit=False):
     print "## Update modules:" 
     print "   --update-safebrowsing         Update database malware and blacklist"
     print "## Version:" 
-    print "   -V, --version         	    Version of Url Malware Owned"
+    print "   --version         	    Version of Url Malware Owned"
     print "## Examples:"
     print "  1. Scan a single URL with safebrowsing database:"
     print "        ./umo.py --safebrowsing -u -s 'http://localhost/test.htm' -w /tmp/malware_urls"
@@ -162,7 +162,7 @@ try:
                 config["p_safebrowsing"] = True
 	    if (k in ("--update-safebrowsing",)):
 		config["p_updatesafebrowsing"] = True
-	    if (k in ("-V","--version")):
+	    if (k in ("--version",)):
     		print "Url Malware Owned (UMO): " + __version__
     		print "Author: " + __author__
 		sys.exit(0)
