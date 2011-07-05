@@ -1,0 +1,11 @@
+skippages = '0'
+pages = '10'
+results = '100'
+googlesleep = '5'
+user_agent = 'code.google.com/umo'
+bingresults = 400
+bingkey = 'BING APP KEY'
+depth = '1'
+malware = 'umomalware.log'
+safebrowsing = 'True'
+updatesafebrowsing = 'False'
