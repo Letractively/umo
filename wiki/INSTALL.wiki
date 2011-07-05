@@ -1,0 +1,11 @@
+#summary One-sentence summary of this page.
+
+= Install process =
+
+  # Download xgoogle : [http://code.google.com/p/safebrowsing-python/]
+  # Donwload safebrowsing google python [http://code.google.com/p/safebrowsing-python/]
+  # Download umo of SVN or the "Downloads"
+  # Install safebrowsing python library. First create SQL Schema [http://code.google.com/p/safebrowsing-python/wiki/SQLSchema].
+  # Configure file conf.py of safebrowsing python library with you API key Google safebrowsing
+  # Configure file umoconfig.py with you APP bing key
+
