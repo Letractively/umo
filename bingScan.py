@@ -3,7 +3,7 @@
 #
 # Copyright(c) 2011-2012 JoseMi(jholgui (at) gmail.com).
 # http://umo.googlecode.com
-#
+# http://twitter.com/JoseMiHolguin
 # This file may be licensed under the terms of of the
 # GNU General Public License Version 2 (the ``GPL'').
 #
