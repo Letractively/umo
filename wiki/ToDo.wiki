@@ -4,20 +4,20 @@
 
 ==External analysis systems:==
 
-  # Integration with Virus Total
+  * Integration with Virus Total
 
 ==Local Analysis systems:==
 
-  # Analysis with ClamAV
+  * Analysis with ClamAV
 
 ==Outputs==
 
-  # Register analyzed URLs to file
-  # Create html summary
-  # ...
+  * Register analyzed URLs to file
+  * Create html summary
+  * ...
 
 ==Urls sources==
 
-  # Find urls in pastebin.com
-  # Find urls in twitter
-  # ....
+  * Find urls in pastebin.com
+  * Find urls in twitter
+  * ....
