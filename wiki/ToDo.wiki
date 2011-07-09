@@ -1,7 +1,23 @@
 #summary One-sentence summary of this page.
 
-= ToDo =
+=ToDo of UMO=
+
+==External analysis systems:==
 
   # Integration with Virus Total
-  # Best reporting 
-  # More sources of URLs
+
+==Local Analysis systems:==
+
+  # Analysis with ClamAV
+
+==Outputs==
+
+  # Register analyzed URLs to file
+  # Create html summary
+  # ...
+
+==Urls sources==
+
+  # Find urls in pastebin.com
+  # Find urls in twitter
+  # ....
