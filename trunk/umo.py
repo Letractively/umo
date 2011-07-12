@@ -99,6 +99,7 @@ if __name__ == "__main__":
     config["p_mode"] = None # 0=single ; 1=bing ;2=google ; 3=crawl
     config["p_useragent"] = getattr(umoconfig, 'user_agent')
     config["p_pages"] = getattr(umoconfig, 'pages')
+    config["p_maxtries"] = getattr(umoconfig, 'maxtries')
     config["p_query"] = None
     config["p_write"] = getattr(umoconfig, 'malware')
     config["p_depth"] = getattr(umoconfig, 'depth')
