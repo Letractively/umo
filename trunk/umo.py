@@ -30,12 +30,12 @@
 ## Fimap project is thanked for being an inspiration and have made 
 ## possible the emergence of umo with some of your files and code.
 
-from safebrowsing.query_lookup import Lookup
+#from safebrowsing.query_lookup import Lookup
 from crawler import crawler
 from googleScan import googleScan
 from malwareScan import malwareScan
 from bingScan import bingScan
-import sys,os
+import sys
 import getopt
 import umoconfig
 
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
 if (len(sys.argv) == 1):
         print "Use -h for some help."
-	print "./umo.py -h"
+        print "./umo.py -h"
         sys.exit(0)
 
 try:
@@ -126,7 +126,7 @@ try:
                         ]
         optlist, args = getopt.getopt(sys.argv[1:], "u:msl:v:hA:gq:p:sxHw:d:bP:CIDTM:4R:", longSwitches)
 
-	for k,v in optlist:
+        for k,v in optlist:
             if (k in ("-u", "--url")):
                 config["p_url"] = v
             if (k in ("-s", "--single")):
@@ -161,38 +161,38 @@ try:
                 config["p_bingkey"] = v
             if (k in ("--safebrowsing"),):
                 config["p_safebrowsing"] = True
-	    if (k in ("--update-safebrowsing",)):
-		config["p_updatesafebrowsing"] = True
-	    if (k in ("--version",)):
-    		print "Url Malware Owned (UMO): " + __version__
-    		print "Author: " + __author__
-		sys.exit(0)
+            if (k in ("--update-safebrowsing",)):
+                config["p_updatesafebrowsing"] = True
+            if (k in ("--version",)):
+                print "Url Malware Owned (UMO): " + __version__
+                print "Author: " + __author__
+                sys.exit(0)
 
 except getopt.GetoptError, err:
-       	print (err)
-       	sys.exit(1)
+    print (err)
+    sys.exit(1)
 
 if (config["p_url"] == None and config["p_mode"] == 0):
-   print "Target URL required. (-u)"
-   sys.exit(1)
+    print "Target URL required. (-u)"
+    sys.exit(1)
 if (config["p_query"] == None and config["p_mode"] == 1):
-   print "Bing Query required. (-q)"
-   sys.exit(1)
+    print "Bing Query required. (-q)"
+    sys.exit(1)
 if (config["p_query"] == None and config["p_mode"] == 2):
-   print "Google Query required. (-q)"
-   sys.exit(1)
+    print "Google Query required. (-q)"
+    sys.exit(1)
 if (config["p_url"] == None and config["p_mode"] == 3):
-   print "Start URL required for harvesting. (-u)"
-   sys.exit(1)
+    print "Start URL required for harvesting. (-u)"
+    sys.exit(1)
 if (config["p_write"] == None and config["p_updatesafebrowsing"] == False):
-   print "File output for results is required. (-w)"
-   sys.exit(1)
+    print "File output for results is required. (-w)"
+    sys.exit(1)
 if (config["p_bingkey"] == None and config["p_mode" == 1]):
-   print "Bing key is required for Bing query mode (-bingkey=X)"
-   sys.exit(1)
+    print "Bing key is required for Bing query mode (-bingkey=X)"
+    sys.exit(1)
 if (config["p_safebrowsing"] == None):
-   print "Safebrowsing post analysis of URLs is necessaryi for UMO, not is only a crawler (--safebrowsing)"
-   sys.exit(1)
+    print "Safebrowsing post analysis of URLs is necessaryi for UMO, not is only a crawler (--safebrowsing)"
+    sys.exit(1)
 
 try:
     
@@ -200,28 +200,28 @@ try:
             m = malwareScan(config)
             m.update_sbg()
     elif (config["p_mode"] == 0):
-	    enlaces = []
-	    enlaces.append(config["p_url"])
-	    config["p_enlaces"] = enlaces
-            m = malwareScan(config)
-            m.scan_sbg()
+        enlaces = []
+        enlaces.append(config["p_url"])
+        config["p_enlaces"] = enlaces
+        m = malwareScan(config)
+        m.scan_sbg()
     elif(config["p_mode"] == 1):
-            g = bingScan(config)
-            g.startBingScan()
-	    m = malwareScan(config)
-            m.scan_sbg()
+        g = bingScan(config)
+        g.startBingScan()
+        m = malwareScan(config)
+        m.scan_sbg()
     elif(config["p_mode"] == 2):
-            g = googleScan(config)
-            #config = g.startGoogleScan()
-            g.startGoogleScan()
-	    #m = malwareScan(config)
-            #m.scan_sbg()
+        g = googleScan(config)
+        #config = g.startGoogleScan()
+        g.startGoogleScan()
+        #m = malwareScan(config)
+        #m.scan_sbg()
     elif(config["p_mode"] == 3):
-            c = crawler(config)
-            config["p_enlaces"] = c.crawl()
-	    m = malwareScan(config)
-	    m.scan_sbg()
-	    
+        c = crawler(config)
+        config["p_enlaces"] = c.crawl() 
+        m = malwareScan(config)
+        m.scan_sbg()
+            
 
 except KeyboardInterrupt:
         print "\n\n[ERROR] You have terminated UMO!"
