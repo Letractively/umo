@@ -20,6 +20,7 @@
 
 from pybing.query import WebQuery
 import umoconfig
+import sys
 
 __author__="JoseMi(jholgui (at) gmail.com)"
 __date__ ="$28.06.2011 06:55:16$"
@@ -28,28 +29,28 @@ class bingScan:
 
     def __init__(self, config):
         self.config = config
-	self.config["p_bingkey"] = getattr(umoconfig, 'bingkey')
+        self.config["p_bingkey"] = getattr(umoconfig, 'bingkey')
         if (self.config["p_bingresults"] > 0):
             print "Bing Scanner will skip the first %d results..."%(self.config["p_bingresults"])
 
 
     def startBingScan(self):
-	
+ 
         print "Querying Bing Search: '%s' with max Bing results %d..."%(self.config["p_query"], self.config["p_bingresults"])
-	query = WebQuery(self.config["p_bingkey"], query=self.config["p_query"])
+        query = WebQuery(self.config["p_bingkey"], query=self.config["p_query"])
         results = query.execute()
-	enlaces = []
-	resultsbing = self.config["p_bingresults"]
+        enlaces = []
+        resultsbing = self.config["p_bingresults"]
         for result in results[:resultsbing]:
-		enlaces.append(result.url)
+          enlaces.append(result.url)
 
-	self.config["p_enlaces"] = enlaces
+        self.config["p_enlaces"] = enlaces
 
         if (len(enlaces) == 0): 
         	sys.stderr.write("Not results by bing search\n")
-		sys.exit(0)
+          sys.exit(0)
         try:
-		return self.config
+        return self.config
         except KeyboardInterrupt:
                 raise
         print "Bing Scan completed."
