@@ -42,15 +42,16 @@ class bingScan:
         enlaces = []
         resultsbing = self.config["p_bingresults"]
         for result in results[:resultsbing]:
-          enlaces.append(result.url)
+            enlaces.append(result.url)
 
         self.config["p_enlaces"] = enlaces
 
         if (len(enlaces) == 0): 
-        	sys.stderr.write("Not results by bing search\n")
-          sys.exit(0)
+            sys.stderr.write("Not results by bing search\n")
+            sys.exit(0)
+        
         try:
-        return self.config
+                return self.config
         except KeyboardInterrupt:
                 raise
         print "Bing Scan completed."
