@@ -111,6 +111,7 @@ if __name__ == "__main__":
     config["p_safebrowsing"] = getattr(umoconfig, 'safebrowsing')
     config["p_updatesafebrowsing"] = getattr(umoconfig, 'updatesafebrowsing')
     config["p_enlaces"] = None
+    config["p_urlsumo"] = getattr(umoconfig,'urlsumo')
 
 if (len(sys.argv) == 1):
         print "Use -h for some help."
@@ -156,7 +157,10 @@ try:
             if (k in ("--skip-pages",)):
                 config["p_skippages"] = int(v)
             if (k in ("--bingresults",)):
-                config["p_bingresults"] = int(v)
+                if int(v) > 999:
+                    config["p_bingresults"] = 999
+                else:
+                    config["p_bingresults"] = int(v)
             if (k in ("--bingkey"),):
                 config["p_bingkey"] = v
             if (k in ("--safebrowsing"),):
@@ -173,25 +177,25 @@ except getopt.GetoptError, err:
     sys.exit(1)
 
 if (config["p_url"] == None and config["p_mode"] == 0):
-    print "Target URL required. (-u)"
+    print "[ERROR] Target URL required. (-u)"
     sys.exit(1)
 if (config["p_query"] == None and config["p_mode"] == 1):
-    print "Bing Query required. (-q)"
+    print "[ERROR] Bing Query required. (-q)"
     sys.exit(1)
 if (config["p_query"] == None and config["p_mode"] == 2):
-    print "Google Query required. (-q)"
+    print "[ERROR] Google Query required. (-q)"
     sys.exit(1)
 if (config["p_url"] == None and config["p_mode"] == 3):
-    print "Start URL required for harvesting. (-u)"
+    print "[ERROR] Start URL required for harvesting. (-u)"
     sys.exit(1)
 if (config["p_write"] == None and config["p_updatesafebrowsing"] == False):
-    print "File output for results is required. (-w)"
+    print "[ERROR] File output for results is required. (-w)"
     sys.exit(1)
 if (config["p_bingkey"] == None and config["p_mode" == 1]):
-    print "Bing key is required for Bing query mode (-bingkey=X)"
+    print "[ERROR] Bing key is required for Bing query mode (-bingkey=X)"
     sys.exit(1)
 if (config["p_safebrowsing"] == None):
-    print "Safebrowsing post analysis of URLs is necessaryi for UMO, not is only a crawler (--safebrowsing)"
+    print "[ERROR] Safebrowsing post analysis of URLs is necessary for UMO, not is only a crawler (--safebrowsing)"
     sys.exit(1)
 
 try:
