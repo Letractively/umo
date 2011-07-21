@@ -38,6 +38,8 @@ from bingScan import bingScan
 import sys
 import getopt
 import umoconfig
+import logging
+
 
 __author__="JoseMi(jholgui (at) gmail.com)"
 __date__ ="$21.06.2011 20:57:21$"
@@ -111,7 +113,18 @@ if __name__ == "__main__":
     config["p_safebrowsing"] = getattr(umoconfig, 'safebrowsing')
     config["p_updatesafebrowsing"] = getattr(umoconfig, 'updatesafebrowsing')
     config["p_enlaces"] = None
-    config["p_urlsumo"] = getattr(umoconfig,'urlsumo')
+    config["p_umourls"] = getattr(umoconfig,'umourls')
+    config["p_umolog"] = getattr(umoconfig,'umolog')
+    
+    # UMO logging
+    
+    logger = logging.getLogger('umo')
+    hdlr = logging.FileHandler(getattr(umoconfig, 'umolog'))
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr) 
+    logger.setLevel(logging.WARNING)
+    config["p_logger"] = logger
 
 if (len(sys.argv) == 1):
         print "Use -h for some help."
@@ -173,29 +186,29 @@ try:
                 sys.exit(0)
 
 except getopt.GetoptError, err:
-    print (err)
+    config["logger"].error(err)
     sys.exit(1)
 
 if (config["p_url"] == None and config["p_mode"] == 0):
-    print "[ERROR] Target URL required. (-u)"
+    print "Target URL required. (-u)"
     sys.exit(1)
 if (config["p_query"] == None and config["p_mode"] == 1):
-    print "[ERROR] Bing Query required. (-q)"
+    print "Bing Query required. (-q)"
     sys.exit(1)
 if (config["p_query"] == None and config["p_mode"] == 2):
-    print "[ERROR] Google Query required. (-q)"
+    print "Google Query required. (-q)"
     sys.exit(1)
 if (config["p_url"] == None and config["p_mode"] == 3):
-    print "[ERROR] Start URL required for harvesting. (-u)"
+    print "Start URL required for harvesting. (-u)"
     sys.exit(1)
 if (config["p_write"] == None and config["p_updatesafebrowsing"] == False):
-    print "[ERROR] File output for results is required. (-w)"
+    print "File output for results is required. (-w)"
     sys.exit(1)
 if (config["p_bingkey"] == None and config["p_mode" == 1]):
-    print "[ERROR] Bing key is required for Bing query mode (-bingkey=X)"
+    print "Bing key is required for Bing query mode (-bingkey=X)"
     sys.exit(1)
 if (config["p_safebrowsing"] == None):
-    print "[ERROR] Safebrowsing post analysis of URLs is necessary for UMO, not is only a crawler (--safebrowsing)"
+    print "Safebrowsing post analysis of URLs is necessary for UMO, not is only a crawler (--safebrowsing)"
     sys.exit(1)
 
 try:
@@ -229,6 +242,7 @@ try:
 
 except KeyboardInterrupt:
         print "\n\n[ERROR] You have terminated UMO!"
+        config["p_logger"].error('User finish umo application')
 
 except Exception, err:
         print "[ERROR] Sorry, you have just found a bug!"
@@ -236,4 +250,5 @@ except Exception, err:
         print "[ERROR]Please also provide the URL where umo crashed."
         raw_input("Push enter to see the error:")
         print "Exception: %s" %err
+        config["p_logger"].error(err)
         raise
