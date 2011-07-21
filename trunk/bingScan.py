@@ -32,11 +32,12 @@ class bingScan:
         self.config["p_bingkey"] = getattr(umoconfig, 'bingkey')
         if (self.config["p_bingresults"] > 0):
             print "Bing Scanner will skip the first %d results..."%(self.config["p_bingresults"])
-
+            self.config["p_logger"].info("Bing Scanner will skip the first %d results..."%(self.config["p_bingresults"]))
 
     def startBingScan(self):
  
         print "Querying Bing Search: '%s' with max Bing results %d..."%(self.config["p_query"], self.config["p_bingresults"])
+        self.config["p_logger"].info("Querying Bing Search: '%s' with max Bing results %d..."%(self.config["p_query"], self.config["p_bingresults"]))
         query = WebQuery(self.config["p_bingkey"], query=self.config["p_query"])
         results = query.execute()
         enlaces = []
@@ -48,10 +49,14 @@ class bingScan:
 
         if (len(enlaces) == 0): 
             sys.stderr.write("Not results by bing search\n")
+            self.config["p_logger"].warning('Not results by bing search\n')
             sys.exit(0)
         
         try:
                 return self.config
-        except KeyboardInterrupt:
+        except KeyboardInterrupt,err:
                 raise
-        print "Bing Scan completed."
+                self.config["p_logger"].error(err)
+        print "Bing Scan completed"
+        self.config["p_logger"].info('Bing Scan completed')
+        
