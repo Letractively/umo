@@ -36,7 +36,6 @@ class googleScan:
 
     def __init__(self, config):
         self.config = config
-        #self.gs = GoogleSearch(self.config["p_query"], page=self.config["p_skippages"], random_agent=True)
         self.gs = GoogleSearch(self.config["p_query"], random_agent=True)
         self.gs.results_per_page = self.config["p_results_per_query"];
         self.cooldown = self.config["p_googlesleep"];
@@ -46,7 +45,6 @@ class googleScan:
 
     def getNextPage(self):
         results = self.gs.get_results()
-
         return(results)
 
     def startGoogleScan(self):
@@ -68,7 +66,7 @@ class googleScan:
 
                 if (diff <= self.cooldown):
                     if (diff > 0): 
-                        print "Commencing %ds google cooldown..." %(self.cooldown - diff)
+                        self.config["p_logger"].info("Commencing %ds google cooldown..." %(self.cooldown - diff))
                         time.sleep(self.cooldown - diff)
                     
                 last_request_time = datetime.datetime.now()
@@ -80,27 +78,24 @@ class googleScan:
               except Exception, err:
                 print err
                 redo = True
-                sys.stderr.write("[RETRYING PAGE %d]\n" %(pagecnt))
+                self.config["p_logger"].error("[RETRYING PAGE %d]\n" %(pagecnt))
                 curtry = curtry +1
                 if (curtry > self.config["p_maxtries"]):
-                    print "MAXIMAL COUNT OF (RE)TRIES REACHED!"
+                    self.config["p_logger"].error("MAXIMAL COUNT OF (RE)TRIES REACHED!")
                     sys.exit(1)
-            
-              
+                    
             curtry = 0
-              
-
             if (len(results) == 0): break
-            sys.stderr.write("[PAGE %d]\n" %(pagecnt))
+            self.config["p_logger"].error("[PAGE %d]\n" %(pagecnt))
             try: 
-		enlaces = []
+                enlaces = []
                 for r in results:
-		    enlaces.append(r.url)
-        	self.config["p_enlaces"] = enlaces
-	    	m = malwareScan(self.config)
-            	m.scan_sbg()
+                    enlaces.append(r.url)
+                    self.config["p_enlaces"] = enlaces
+                    m = malwareScan(self.config)
+                    m.scan_sbg()
             except KeyboardInterrupt:
                 raise
             time.sleep(1)
-	#return self.config
-        print "Google Scan completed."
+
+        print "Google Scan completed"
