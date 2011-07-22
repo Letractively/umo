@@ -31,7 +31,6 @@ class bingScan:
         self.config = config
         self.config["p_bingkey"] = getattr(umoconfig, 'bingkey')
         if (self.config["p_bingresults"] > 0):
-            print "Bing Scanner will skip the first %d results..."%(self.config["p_bingresults"])
             self.config["p_logger"].info("Bing Scanner will skip the first %d results..."%(self.config["p_bingresults"]))
 
     def startBingScan(self):
