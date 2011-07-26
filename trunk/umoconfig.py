@@ -1,5 +1,9 @@
+#INPUT
+# File with urls to analyze
+file = None
+
 #GOOGLE
-skippages = 0
+skippages = 10
 pages = 10
 results = 100
 googlesleep = 5
@@ -7,7 +11,7 @@ maxtries = 5
 
 #BING
 bingresults = 999
-bingkey = 'APP BING KEY'
+bingkey = ''
 
 
 #CRAWLER
