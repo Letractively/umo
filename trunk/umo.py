@@ -83,7 +83,7 @@ def show_help(AndQuit=False):
     print "   --version         	    Version of Url Malware Owned"
     print "## Examples:"
     print "  1. Scan a single URL with safebrowsing database:"
-    print "        ./umo.py --safebrowsing -u -s 'http://localhost/test.htm'"
+    print "        ./umo.py --safebrowsing -s -u 'http://localhost/test.htm'"
     print "  2. Scan Bing search results for detect malware with safebrowsing:"
     print "        ./umo.py --safebrowsing -b -q 'site:example.com' --bingresults=500"
     print "  3. Scan Google search results for detect malware url with safebrowsing:"
@@ -92,6 +92,8 @@ def show_help(AndQuit=False):
     print "        ./umo.py --safebrowsing -H -u 'http://localhost' -d 3"
     print "  5. Update local safebrowsing database:"
     print "        ./umo.py --update-safebrowsing"
+    print "  6. Scan a file with URLs with safebrowsing database"
+    print "        ./umo.py --safebrowsing --file=urls"
     if (AndQuit):
         sys.exit(0)
 
@@ -115,6 +117,7 @@ if __name__ == "__main__":
     config["p_enlaces"] = None
     config["p_umourls"] = getattr(umoconfig,'umourls')
     config["p_umolog"] = getattr(umoconfig,'umolog')
+    config["p_file"] = getattr(umoconfig,'file')
     
     # UMO logging
     
@@ -136,7 +139,7 @@ try:
         longSwitches = ["url="          , "help"       , "safebrowsing", "update-safebrowsing",
                         "user-agent="   , "query="      , "google"      , "bing"       , "pages=", 
                         "harvest"       , "write="     , "depth="      , "skip-pages=", "version",
-                        "results="	, "googlesleep=", "bingkey="	, "bingresults",
+                        "results="	, "googlesleep=", "bingkey="	, "bingresults", "file=",
                         ]
         optlist, args = getopt.getopt(sys.argv[1:], "u:msl:v:hA:gq:p:sxHw:d:bP:CIDTM:4R:", longSwitches)
 
@@ -180,13 +183,17 @@ try:
                 config["p_safebrowsing"] = True
             if (k in ("--update-safebrowsing",)):
                 config["p_updatesafebrowsing"] = True
+            if (k in ("--file",)):
+                config["p_file"] = v
+                config["p_mode"] = 4
             if (k in ("--version",)):
                 print "Url Malware Owned (UMO): " + __version__
                 print "Author: " + __author__
                 sys.exit(0)
 
 except getopt.GetoptError, err:
-    config["logger"].error(err)
+    print "Problems with command line params!"
+    config["p_logger"].error(err)
     sys.exit(1)
 
 if (config["p_url"] == None and config["p_mode"] == 0):
@@ -200,6 +207,9 @@ if (config["p_query"] == None and config["p_mode"] == 2):
     sys.exit(1)
 if (config["p_url"] == None and config["p_mode"] == 3):
     print "Start URL required for harvesting. (-u)"
+    sys.exit(1)
+if (config["p_file"] == None and config["p_mode"] == 4):
+    print "Need a file with urls for File mode (-f)"
     sys.exit(1)
 if (config["p_write"] == None and config["p_updatesafebrowsing"] == False):
     print "File output for results is required. (-w)"
@@ -238,8 +248,21 @@ try:
         config["p_enlaces"] = c.crawl() 
         m = malwareScan(config)
         m.scan_sbg()
+    elif(config["p_mode"] == 4):
+        try:
+            print "UMO collect urls from: " + config["p_file"]
+            urlsfile = open(config["p_file"], 'r')
+            enlaces = []
+        except IOError, err:
+            config["p_logger"].error(err)
+            sys.exit(1)
+        for line in urlsfile:
+            enlaces.append(line)
+        config["p_enlaces"] = enlaces 
+        m = malwareScan(config)
+        m.scan_sbg()
             
-    print "UMO finish!" 
+    print "UMO finish! Review file for more information: " + config["p_write"] + " , if it's empty, Congratulations :-)"
 
 except KeyboardInterrupt:
         print "\n\nYou have terminated UMO!"
