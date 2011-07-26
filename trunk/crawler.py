@@ -42,7 +42,7 @@ class crawler:
 
     def crawl(self):
         root_url = self.config["p_url"]
-
+        print "UMO crawler started ..."
 
         idx = 0
         self.config["p_logger"].info("[%d] Going to root URL: '%s'..." %(idx, root_url))
@@ -59,7 +59,7 @@ class crawler:
             self.crawl_url(url, level)
             idx = idx +1
 
-        print "Crawling finished done"
+        print "UMO Crawling done!"
         return enlaces
 
     def countChar(self, word, c):
@@ -148,8 +148,8 @@ class crawler:
                 raise
 
         except Exception, err:
-            config["p_logger"].error("Failed to to request to '%s'" %(Exception))
-            config["p_logger"].error(err)
+            self.config["p_logger"].error("Failed to to request to '%s'" %(Exception))
+            self.config["p_logger"].error(err)
             return(None)
 
     def getDomain(self, url=None, keepPrefix=False, keepPort=False):
