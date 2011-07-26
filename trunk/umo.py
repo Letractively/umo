@@ -83,13 +83,13 @@ def show_help(AndQuit=False):
     print "   --version         	    Version of Url Malware Owned"
     print "## Examples:"
     print "  1. Scan a single URL with safebrowsing database:"
-    print "        ./umo.py --safebrowsing -u -s 'http://localhost/test.htm' -w /tmp/malware_urls"
+    print "        ./umo.py --safebrowsing -u -s 'http://localhost/test.htm'"
     print "  2. Scan Bing search results for detect malware with safebrowsing:"
-    print "        ./umo.py --safebrowsing -b -q 'site:example.com' --bingresults=500 -w /tmp/malware_urls"
+    print "        ./umo.py --safebrowsing -b -q 'site:example.com' --bingresults=500"
     print "  3. Scan Google search results for detect malware url with safebrowsing:"
-    print "        ./umo.py --safebrowsing -g -q 'inurl:include.php' -w /tmp/malware_urls"
+    print "        ./umo.py --safebrowsing -g -q 'inurl:include.php'"
     print "  4. Crawling mode"
-    print "        ./umo.py --safebrowsing -H -u 'http://localhost' -d 3 -w /tmp/malware_urls"
+    print "        ./umo.py --safebrowsing -H -u 'http://localhost' -d 3"
     print "  5. Update local safebrowsing database:"
     print "        ./umo.py --update-safebrowsing"
     if (AndQuit):
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     hdlr.setFormatter(formatter)
     logger.addHandler(hdlr) 
-    logger.setLevel(logging.WARNING)
+    logger.setLevel(logging.INFO)
     config["p_logger"] = logger
 
 if (len(sys.argv) == 1):
@@ -239,15 +239,16 @@ try:
         m = malwareScan(config)
         m.scan_sbg()
             
+    print "UMO finish!" 
 
 except KeyboardInterrupt:
-        print "\n\n[ERROR] You have terminated UMO!"
+        print "\n\nYou have terminated UMO!"
         config["p_logger"].error('User finish umo application')
 
 except Exception, err:
-        print "[ERROR] Sorry, you have just found a bug!"
-        print "[ERROR] If you are cool, send the following stacktrace to the bugtracker on http://umo.googlecode.com/"
-        print "[ERROR]Please also provide the URL where umo crashed."
+        print "Sorry, you have just found a bug!"
+        print "If you are cool, send the following stacktrace to the bugtracker on http://umo.googlecode.com/"
+        print "Please also provide the URL where umo crashed."
         raw_input("Push enter to see the error:")
         print "Exception: %s" %err
         config["p_logger"].error(err)
