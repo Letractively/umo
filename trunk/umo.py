@@ -117,6 +117,7 @@ if __name__ == "__main__":
     config["p_umourls"] = getattr(umoconfig,'umourls')
     config["p_umolog"] = getattr(umoconfig,'umolog')
     config["p_file"] = getattr(umoconfig,'file')
+    level = getattr(umoconfig,'level')
     
     # UMO logging
     
@@ -124,8 +125,17 @@ if __name__ == "__main__":
     hdlr = logging.FileHandler(getattr(umoconfig, 'umolog'))
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     hdlr.setFormatter(formatter)
-    logger.addHandler(hdlr) 
-    logger.setLevel(logging.INFO)
+    logger.addHandler(hdlr)
+    if level == 0:
+        logger.setLevel(logging.INFO)
+    elif level == 1:
+        logger.setLevel(logging.WARNING)
+    elif level == 2:
+        logger.setLevel(logging.ERROR)
+    elif level == 3:
+        logger.setLevel(logging.CRITICAL)
+    else:
+        logger.setLevel(logging.WARNING)
     config["p_logger"] = logger
 
 if (len(sys.argv) == 1):
