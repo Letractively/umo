@@ -30,7 +30,6 @@
 ## Fimap project is thanked for being an inspiration and have made 
 ## possible the emergence of umo with some of your files and code.
 
-#from safebrowsing.query_lookup import Lookup
 from crawler import crawler
 from googleScan import googleScan
 from malwareScan import malwareScan
@@ -42,8 +41,8 @@ import logging
 
 
 __author__="JoseMi(jholgui (at) gmail.com)"
-__date__ ="$21.06.2011 20:57:21$"
-__version__ = "Beta 0.1"
+__date__ ="$27.07.2011 20:57:21$"
+__version__ = "Beta 0.1c"
 config = {}
 
 def show_help(AndQuit=False):
