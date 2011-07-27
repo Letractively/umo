@@ -52,7 +52,7 @@ class googleScan:
 
         pagecnt = 0
         curtry = 0
-        
+        enlaces = []
         last_request_time = datetime.datetime.now()
 
         while(pagecnt < self.config["p_pages"]):
@@ -88,14 +88,13 @@ class googleScan:
             if (len(results) == 0): break
             self.config["p_logger"].error("[PAGE %d]\n" %(pagecnt))
             try: 
-                enlaces = []
                 for r in results:
                     enlaces.append(r.url)
-                    self.config["p_enlaces"] = enlaces
-                    m = malwareScan(self.config)
-                    m.scan_sbg()
             except KeyboardInterrupt:
                 raise
             time.sleep(1)
-
+            
+        self.config["p_enlaces"] = enlaces
+        m = malwareScan(self.config)
+        m.scan_sbg()
         print "Google Scan completed, look at report: " + self.config["p_write"] + "\n"
