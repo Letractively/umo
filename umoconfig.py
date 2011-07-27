@@ -2,6 +2,9 @@
 # File with urls to analyze
 file = None
 
+# Debug level of UMO: 0 = INFO, 1=WARNING, 2=ERROR, 3=CRITICAL
+level = 1
+
 #GOOGLE
 skippages = 10
 pages = 10
