@@ -23,7 +23,7 @@ import umoconfig
 import sys
 
 __author__="JoseMi(jholgui (at) gmail.com)"
-__date__ ="$28.06.2011 06:55:16$"
+__date__ ="$28.07.2011 06:55:16$"
 
 class bingScan:
 
