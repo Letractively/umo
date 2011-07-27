@@ -40,7 +40,7 @@ class googleScan:
         self.gs.results_per_page = self.config["p_results_per_query"];
         self.cooldown = self.config["p_googlesleep"];
         if (self.config["p_skippages"] > 0):
-            print "UMO Google Scanner will skip the first %d pages..."%(self.config["p_skippages"]+"\n")
+            print "UMO Google Scanner will skip the first %d pages..."%(self.config["p_skippages"])
 
 
     def getNextPage(self):
