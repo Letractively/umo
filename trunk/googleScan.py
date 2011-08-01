@@ -78,7 +78,7 @@ class googleScan:
               except Exception, err:
                 print err
                 redo = True
-                self.config["p_logger"].error("[RETRYING PAGE %d]\n" %(pagecnt))
+                self.config["p_logger"].error("[RETRYING PAGE %d]" %(pagecnt))
                 curtry = curtry +1
                 if (curtry > self.config["p_maxtries"]):
                     self.config["p_logger"].error("MAXIMAL COUNT OF (RE)TRIES REACHED!")
@@ -86,15 +86,15 @@ class googleScan:
                     
             curtry = 0
             if (len(results) == 0): break
-            self.config["p_logger"].error("[PAGE %d]\n" %(pagecnt))
+            self.config["p_logger"].error("[PAGE %d]" %(pagecnt))
             try: 
                 for r in results:
                     enlaces.append(r.url)
             except KeyboardInterrupt:
                 raise
             time.sleep(1)
-            
-        self.config["p_enlaces"] = enlaces
-        m = malwareScan(self.config)
-        m.scan_sbg()
-        print "Google Scan completed, look at report: " + self.config["p_write"] + "\n"
+        
+        enlaces_uniq = list(set(enlaces))
+        self.config["p_enlaces"] = enlaces_uniq
+        return self.config
+        print "Google Scan completed, look at report: " + self.config["p_write"]
