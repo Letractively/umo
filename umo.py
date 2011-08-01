@@ -248,13 +248,12 @@ try:
         m.scan_sbg()
     elif(config["p_mode"] == 2):
         g = googleScan(config)
-        #config = g.startGoogleScan()
         g.startGoogleScan()
-        #m = malwareScan(config)
-        #m.scan_sbg()
+        m = malwareScan(config)
+        m.scan_sbg()
     elif(config["p_mode"] == 3):
         c = crawler(config)
-        config["p_enlaces"] = c.crawl() 
+        config["p_enlaces"] = list(set(c.crawl()))
         m = malwareScan(config)
         m.scan_sbg()
     elif(config["p_mode"] == 4):
@@ -267,7 +266,7 @@ try:
             sys.exit(1)
         for line in urlsfile:
             enlaces.append(line)
-        config["p_enlaces"] = enlaces 
+        config["p_enlaces"] = list(set(enlaces)) 
         m = malwareScan(config)
         m.scan_sbg()
             
