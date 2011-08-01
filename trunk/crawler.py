@@ -42,7 +42,7 @@ class crawler:
 
     def crawl(self):
         root_url = self.config["p_url"]
-        print "UMO crawler started ..."
+        print "UMO crawler started ... waiting please, this task could take minutes"
 
         idx = 0
         self.config["p_logger"].info("[%d] Going to root URL: '%s'..." %(idx, root_url))
