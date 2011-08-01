@@ -43,8 +43,9 @@ class bingScan:
         resultsbing = self.config["p_bingresults"]
         for result in results[:resultsbing]:
             enlaces.append(result.url)
-
-        self.config["p_enlaces"] = enlaces
+            
+        enlaces_uniq = list(set(enlaces))
+        self.config["p_enlaces"] = enlaces_uniq
 
         if (len(enlaces) == 0): 
             sys.stderr.write("Not results by bing search\n")
