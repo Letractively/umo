@@ -6,7 +6,7 @@ http://code.google.com/p/safebrowsing-python/
 
 Cuando se importa la librería MySQLdb el script backend.py tiene un fallo y es que la D está en mayúsculas. Hay que dejarlo así:
 
-línea 55: import MySQLDb
+línea 55: import MySQLdb
 línea 63: kwargs['db'] = self.db_name
 línea 73: self.connection = MySQLdb.connect(**kwargs)
 
